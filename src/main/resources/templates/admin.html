@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Войдите в свой аккаунт</title>
+<!--    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">-->
+</head>
+
+<body>
+<div>
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>UserName</th>
+        <th>Password</th>
+        <th>Roles</th>
+        </thead>
+        <div th:each="user : ${allUsers}">
+            <tr>
+                <td th:text="${user.id}">${user.id}</td>
+                <td th:text="${user.username}">${user.username}</td>
+                <td th:text="${user.password}">${user.password}</td>
+                <td>
+                <th th:text="${roles}">placeholder</th>
+                </td>
+                <td>
+                    <form th:action="@{/admin/{userId}/{action}(userId=${user.id})}" method="post">
+                        <input type="hidden" name="userId" th:value="${user.id}"/>
+                        <input type="hidden" name="action" value="delete"/>
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </div>
+    </table>
+    <a href="/">Главная</a>
+</div>
+</body>
+</html>

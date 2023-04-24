@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Jokerge</title>
+</head>
+<body>
+<h1>Регистрация</h1>
+    <form method="POST" th:action="@{/registration}" id="authUserForm">
+        <label for="username">Имя пользователя: </label>
+        <input type="text" id="username" name="username"/><br/>
+
+        <label for="password">Пароль: </label>
+        <input type="password" id="password" name="password"/><br/>
+
+        <label for="confirm">Подтвердите пароль: </label>
+        <input type="password" id="confirm" name="passwordConfirm"/><br/>
+
+        <input type="submit" value="Зарегистрироваться"/>
+    </form>
+</body>
+</html>
