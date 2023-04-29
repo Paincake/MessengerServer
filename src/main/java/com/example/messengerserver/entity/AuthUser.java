@@ -1,19 +1,26 @@
 package com.example.messengerserver.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 
+import lombok.*;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-
+import java.io.File;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name="t_userauth")
+@AllArgsConstructor
+@NoArgsConstructor(access= AccessLevel.PUBLIC, force=true)
+@Getter
+@Setter
 public class AuthUser implements UserDetails {
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,22 +29,34 @@ public class AuthUser implements UserDetails {
     private String username;
     private String password;
 
+    @Nullable
+    private String avatarImage;
+
+    @ManyToMany(mappedBy = "users")
+    @Nullable
+    private List<Chat> chats;
+
+    @OneToMany(mappedBy = "sender")
+    @Nullable
+    private List<Message> sentMessages;
+
+    @OneToMany(mappedBy = "receiver")
+    @Nullable
+    private List<Message> receivedMessages;
+
+    @OneToMany(mappedBy = "author")
+    @Nullable
+    private List<Form> forms;
+
+    @OneToMany(mappedBy = "repliedUser")
+    @Nullable
+    private List<Reply> replies;
+
     @Transient
     private String passwordConfirm;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
-
-    public AuthUser() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public String getUsername() {
@@ -64,10 +83,6 @@ public class AuthUser implements UserDetails {
         return true;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
@@ -78,24 +93,8 @@ public class AuthUser implements UserDetails {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getPasswordConfirm() {
         return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 
 }

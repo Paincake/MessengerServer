@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+    <form method="post" th:action="@{/main/submit}" id="submitForm">
+        <label for="descr"> Расскажите о себе в анкете!
+        </label>
+        <textarea id="descr" name="text">
+        </textarea>
+        <div>Прикрепите любую картинку(необязательно):</div>
+        <input type="file" id="FileUpload1" class="Combobox2" name="pictures" value="Foto...">
+        <p><input type="radio" name="isPrivate" value="t" checked>Анонимно</p>
+        <p><input type="radio" name="isPrivate" value="f">Не анонимно</p>
+        <input type="submit" value="Опубликовать анкету"/>
+
+    </form>
+
+
+</body>
+</html>

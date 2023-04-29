@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToMany;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,8 +14,11 @@ import java.util.Set;
 
 @Entity
 @Table(name="t_role")
+@Getter
+@Setter
 public class Role implements GrantedAuthority {
     @jakarta.persistence.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @Transient

@@ -4,6 +4,9 @@ import com.example.messengerserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -35,18 +41,20 @@ public class WebSecurityConfig {
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.securityContext((securityContext) -> securityContext
+                        .requireExplicitSave(true));
         http.csrf()
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/registration").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/main/**").permitAll()
-                .requestMatchers("/", "/resources/**").permitAll()
+                .requestMatchers("/", "/resources/**", "/main").permitAll()
+                .requestMatchers("/submit", "/reply").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/main")
                 .permitAll()
                 .and()
                 .logout()
@@ -54,8 +62,11 @@ public class WebSecurityConfig {
                 .logoutSuccessUrl("/");
         return http.build();
     }
+
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
     }
+
+
 }

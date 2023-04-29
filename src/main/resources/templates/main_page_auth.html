@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p>Опубликованные анкеты:</p>
+    <div th:each="form : ${forms}">
+        <p th:text="${form.text}"></p>
+        <p th:text="${form.pictures}"></p>
+        <p><a th:href="@{/main/reply/{formId}(formId=${form.id})}">Откликнуться</a></p>
+    </div>
+</body>
+</html>
