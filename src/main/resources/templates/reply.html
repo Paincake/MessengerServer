@@ -5,8 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<p>Отлик на анкету пользователя:</p>
-<p th:text="${author}"></p>
+<p>Отлик на анкету анонимного пользователя</p>
 <form method="post" th:action="@{/main/reply/{formId}(formId=${form.id})}" id="submitReply">
     <label for="descr"> Расскажите о себе в отлике!
     </label>

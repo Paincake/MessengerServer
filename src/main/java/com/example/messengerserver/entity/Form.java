@@ -3,6 +3,7 @@ package com.example.messengerserver.entity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
@@ -26,7 +27,8 @@ public class Form {
     @ElementCollection
     private List<String> pictures;
 
-    @OneToMany(mappedBy = "repliedForm")
+    @OneToMany(mappedBy = "repliedForm", orphanRemoval = true)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Nullable
     private List<Reply> replyList;
     private boolean isPrivate;

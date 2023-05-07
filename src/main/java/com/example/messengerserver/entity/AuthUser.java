@@ -1,13 +1,17 @@
 package com.example.messengerserver.entity;
 
+import com.example.messengerserver.cache.MessageCache;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 
 import lombok.*;
+import org.hibernate.annotations.Type;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 
 import java.io.File;
@@ -30,9 +34,10 @@ public class AuthUser implements UserDetails {
     private String password;
 
     @Nullable
+    @Column(columnDefinition="TEXT")
     private String avatarImage;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     @Nullable
     private List<Chat> chats;
 
@@ -44,11 +49,11 @@ public class AuthUser implements UserDetails {
     @Nullable
     private List<Message> receivedMessages;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
     @Nullable
     private List<Form> forms;
 
-    @OneToMany(mappedBy = "repliedUser")
+    @OneToMany(mappedBy = "repliedUser", fetch = FetchType.EAGER)
     @Nullable
     private List<Reply> replies;
 

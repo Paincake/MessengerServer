@@ -6,6 +6,7 @@
 </head>
 <body>
 <p>Опубликованные анкеты:</p>
+<p>(перед откликом не забудьте авторизоваться)</p>
 <div th:each="form : ${forms}">
     <p th:text="${form.text}"></p>
     <p th:text="${form.pictures}"></p>

@@ -17,7 +17,7 @@ public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<AuthUser> users;
     @OneToMany(mappedBy = "chat")
     @Nullable

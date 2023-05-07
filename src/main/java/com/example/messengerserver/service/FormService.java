@@ -1,5 +1,6 @@
 package com.example.messengerserver.service;
 
+import com.example.messengerserver.entity.AuthUser;
 import com.example.messengerserver.entity.Form;
 import com.example.messengerserver.entity.Reply;
 import com.example.messengerserver.repository.FormRepository;
@@ -13,8 +14,10 @@ public class FormService {
     @Autowired
     private FormRepository formRepository;
 
-    public List<Form> findAllForms(){
-        return formRepository.findAll();
+    public List<Form> findAllForms(List<AuthUser> user){
+//        return formRepository.findFormsByAuthorNotAndIdNotIn(user, ids);
+//        return formRepository.findFormsByIdNotIn(ids);
+        return formRepository.findFormsByAuthorNotIn(user);
     }
 
     public void submitForm(Form form){

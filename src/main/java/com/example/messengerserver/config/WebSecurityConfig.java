@@ -26,6 +26,7 @@ public class WebSecurityConfig {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
     @Bean
     public AuthenticationManager authenticationManager(
             HttpSecurity http,
@@ -48,8 +49,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/registration").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/", "/resources/**", "/main").permitAll()
-                .requestMatchers("/submit", "/reply").authenticated()
+                .requestMatchers("/", "/resources/**", "/delete").permitAll()
+                .requestMatchers("/submit", "/reply", "/chat", "/account", "/main").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

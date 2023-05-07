@@ -1,8 +1,11 @@
 package com.example.messengerserver.entity;
 
 import jakarta.annotation.Nullable;
+import org.hibernate.annotations.Cascade;
 import jakarta.persistence.*;
 import lombok.*;
+
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,6 +25,7 @@ public class Reply {
     @ManyToOne
     private AuthUser repliedUser;
     @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Form repliedForm;
     @Nullable
     private String text;

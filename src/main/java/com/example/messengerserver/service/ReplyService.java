@@ -1,5 +1,6 @@
 package com.example.messengerserver.service;
 
+import com.example.messengerserver.entity.AuthUser;
 import com.example.messengerserver.entity.Form;
 import com.example.messengerserver.entity.Reply;
 import com.example.messengerserver.repository.ReplyRepository;
@@ -19,6 +20,9 @@ public class ReplyService {
     }
     public void deleteReply(Long replyId){
         if(replyRepository.findById(replyId).isPresent()) replyRepository.deleteById(replyId);
+    }
+    public List<Reply> findAllRepliesByUser(AuthUser user){
+        return replyRepository.findRepliesByRepliedUser(user);
     }
 
 }
