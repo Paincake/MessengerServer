@@ -5,6 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-    <p>чат</p>
+    <div th:each="message : ${chat.messageList}">
+        <p th:text="${message.sender.username}"></p>
+        <p th:text="${message.sendingTime}"></p>
+        <p th:text="${message.text}"></p>
+    </div>
+    <form method="post" th:action="@{/chat/{chatId}/send(chatId=${chat.id})}" id="message">
+        <label for="messageText"> Введите сообщение:
+        </label>
+        <textarea id="messageText" name="text">
+        </textarea>
+        <input type="submit" value="Отправить"/>
+    </form>
 </body>
 </html>

@@ -4,9 +4,6 @@ import com.example.messengerserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.AccessDecisionManager;
-import org.springframework.security.access.AccessDecisionVoter;
-import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,8 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -49,8 +44,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/registration").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/", "/resources/**", "/delete").permitAll()
-                .requestMatchers("/submit", "/reply", "/chat", "/account", "/main").authenticated()
+                .requestMatchers("/", "/resources/**", "/delete", "/main").permitAll()
+                .requestMatchers("/submit", "/reply", "/chat", "/account").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

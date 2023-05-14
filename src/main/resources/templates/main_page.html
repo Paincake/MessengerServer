@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
+<p><a th:href="@{/login}">Авторизоваться</a></p>
+<p><a th:href="@{/registration}">Зарегистрироваться</a></p>
 <p>Опубликованные анкеты:</p>
 <p>(перед откликом не забудьте авторизоваться)</p>
 <div th:each="form : ${forms}">

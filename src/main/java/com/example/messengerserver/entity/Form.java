@@ -19,14 +19,8 @@ public class Form {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
     private AuthUser author;
-
-    @Nullable
-    @ElementCollection
-    private List<String> pictures;
-
     @OneToMany(mappedBy = "repliedForm", orphanRemoval = true)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Nullable

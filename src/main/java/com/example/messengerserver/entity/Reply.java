@@ -29,8 +29,5 @@ public class Reply {
     private Form repliedForm;
     @Nullable
     private String text;
-    @Nullable
-    @ElementCollection
-    private List<String> pictures;
 
 }

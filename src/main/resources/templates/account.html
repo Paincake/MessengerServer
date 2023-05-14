@@ -5,7 +5,41 @@
     <title>Title</title>
 </head>
 <body>
-    <p th:text="${user.username}"></p>
 
+    <h1 th:text="${user.username}"></h1>
+    <p><a th:href="@{/main}">Посмотреть анкеты</a></p>
+    <p><a href="/">На главную</a></p>
+    <p><a href="/logout">Выйти</a></p>
+    <h2>Ваши чаты:</h2>
+    <div th:each="chat : ${chats}">
+        <p th:text="${receivers.get(chat).username}"></p>
+        Последнее сообщение:
+        <p th:text="${chat.lastMessageDateTime}"></p>
+        <p><a th:href="@{/chat/{chatId}(chatId=${chat.id})}">Войти в чат</a></p>
+        <p><a th:href="@{/account/{userId}/{chatId}/delete/chat(userId=${user.id},chatId=${chat.id})}">Удалить чат</a></p>
+    </div>
+    <h2>Ваши анкеты:</h2>
+    <p><a th:href="@{/main/submit}">Создать анкету</a></p>
+    <div th:each="form : ${forms}">
+        <p>Текст анкеты:</p>
+        <p th:text="${form.text}"></p>
+        <p>Приватность:</p>
+        <p th:text="${form.isPrivate}"></p>
+        <p>Время публикации:</p>
+        <p th:text="${form.submitTime}"></p>
+        <p th:if="${form.replyList.size > 0}"><a th:href="@{/account/{userId}/{formId}/replies(userId=${user.id}, formId=${form.id})}">Посмотреть отклики</a></p>
+        <p><a th:href="@{/account/{userId}/{formId}/delete/form(userId=${user.id}, formId=${form.id})}">Удалить форму</a></p>
+    </div>
+    <h2>Ваши отклики:</h2>
+    <div th:each="reply : ${replies}">
+        <p>Форма:</p>
+        <p th:text="${reply.repliedForm.text}"></p>
+        <p>Время отклика:</p>
+        <p th:text="${reply.repliedForm.submitTime}"></p>
+        <p>Текст отклика:</p>
+        <p th:text="${reply.text}"></p>
+        <p><a th:href="@{/chat/new/private/{userId}/{replyId}(userId=${reply.repliedUser.id}, replyId=${reply.id})}">Войти в чат</a></p>
+        <p><a th:href="@{/account/{userId}/{replyId}/delete/reply(userId=${user.id}, replyId=${reply.id})}">Удалить отклик</a></p>
+    </div>
 </body>
 </html>

@@ -25,4 +25,7 @@ public class ReplyService {
         return replyRepository.findRepliesByRepliedUser(user);
     }
 
+    public Reply findReplyById(Long replyId) {
+        return replyRepository.findById(replyId).orElse(null);
+    }
 }

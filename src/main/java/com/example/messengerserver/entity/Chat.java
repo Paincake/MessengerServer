@@ -23,8 +23,6 @@ public class Chat {
     @Nullable
     private List<Message> messageList;
     private boolean isPrivate;
-
-
     private LocalDateTime lastMessageDateTime;
 
 }

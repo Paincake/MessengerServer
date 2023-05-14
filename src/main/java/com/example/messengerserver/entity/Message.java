@@ -19,9 +19,6 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String text;
-    @Nullable
-    @ElementCollection
-    private List<String> pictures;
     private LocalDateTime sendingTime;
     @ManyToOne
     private AuthUser sender;

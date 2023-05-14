@@ -1,6 +1,5 @@
 package com.example.messengerserver.entity;
 
-import com.example.messengerserver.cache.MessageCache;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 

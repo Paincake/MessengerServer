@@ -107,10 +107,8 @@ public class MainPageController {
         reply.setRepliedForm(formService.findFormById(Long.parseLong(formId)));
         reply.setRepliedUser((AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         reply.setReplyDateTime(LocalDateTime.now());
-        reply.setPictures(List.of(""));
         replyService.replyToForm(reply);
         return "redirect:/main";
     }
-
 }
 
